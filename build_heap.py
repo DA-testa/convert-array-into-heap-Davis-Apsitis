@@ -30,18 +30,14 @@ def main():
     # add another input for I or F 
     # first two tests are from keyboard, third test is from a file
 
-    input_string = input()
-    input_split = input_string.split('\\r\\n')
-    
-  
-    choice = input_split[0]
+    choice = input().strip()
     if choice == "I":
         # input from keyboard
-        n = input_split[1]
-        data = list(map(int, input_split[2].split()))
+        n = int(input().strip())
+        data = list(map(int, input().strip().split()))
 
     elif choice == "F":
-        fileName = input_split[1]
+        fileName = input().strip()
         if os.path.isfile("tests/" + fileName):
             with open("tests/" + fileName, 'r') as file:
                 n = int(file.readline())
