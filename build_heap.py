@@ -1,14 +1,28 @@
 # python3
-
+import os
 
 def build_heap(data):
     swaps = []
+    n = len(data)
     # TODO: Creat heap and heap sort
-    # try to achieve  O(n) and not O(n2)
-
-
+    # try to achieve O(n) and not O(n2)
+    for i in range(n//2, -1, -1):
+        sift_down(data, i, swaps)
     return swaps
 
+def sift_down(data, i, swaps):
+    n = len(data)
+    min_index = i
+    l = 2*i + 1
+    if l < n and data[l] < data[min_index]:
+        min_index = l
+    r = 2*i + 2
+    if r < n and data[r] < data[min_index]:
+        min_index = r
+    if i != min_index:
+        data[i], data[min_index] = data[min_index], data[i]
+        swaps.append((i, min_index))
+        sift_down(data, min_index, swaps)
 
 def main():
     
@@ -16,13 +30,27 @@ def main():
     # add another input for I or F 
     # first two tests are from keyboard, third test is from a file
 
+    choice = input().strip()
+    if choice == "I":
+        # input from keyboard
+        n = int(input().strip())
+        data = list(map(int, input().strip().split()))
 
-    # input from keyboard
-    n = int(input())
-    data = list(map(int, input().split()))
+    elif choice == "F":
+        fileName = input().strip()
+        if os.path.isfile("tests/" + fileName):
+            with open("tests/" + fileName, 'r') as file:
+                n = int(file.readline())
+                data = list(map(int, file.readline().split()))
+        else:
+            print(f"File '{fileName}' does not exist.")
+            return
+    else:
+        print("Invalid input character entered.")
+        return
 
     # checks if lenght of data is the same as the said lenght
-    assert len(data) == n
+    assert len(data) == int(n)
 
     # calls function to assess the data 
     # and give back all swaps
