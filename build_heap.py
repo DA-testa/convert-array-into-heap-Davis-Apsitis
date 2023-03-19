@@ -31,7 +31,7 @@ def main():
     # first two tests are from keyboard, third test is from a file
 
     input_string = input()
-    input_split = input_string.split('\r\n')
+    input_split = input_string.split('\\r\\n')
     
   
     choice = input_split[0]
